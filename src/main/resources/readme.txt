@@ -19,6 +19,8 @@
   8) set,修改节点
      set /lwh new-data,修改数据,dataVersion会变化,乐观锁
      set /lwh 123 1,最后的参数1表示dataVersion版本号,只有版本号一致,才会将数据修改为123
+  9) delete,删除节点
+     delete /lwh version
 
 3、状态信息
   cZxid:创建时zookeeper给节点分配的ID
@@ -31,9 +33,13 @@
   dataLength:数据长度
   mumChildren:有几个子节点
 
-4、ZK特性session的基本原理
+4、ZK特性1:session的基本原理
   1) 客户端与服务端之间的连接存在会话
   2) 每个会话都可以设置一个超时时间
   3) 心跳结束,session过期
   4) session过期,则临时节点znode会被抛弃
   5) 心跳机制:客户端向服务端的ping包请求
+
+5、ZK特性2:watcher机制
+  1) 针对每个节点的操作,都会有一个监督者watcher
+  2) 当监控的某个对象znode发生了变化,则触发watcher事件
