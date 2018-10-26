@@ -43,3 +43,34 @@
 5、ZK特性2:watcher机制
   1) 针对每个节点的操作,都会有一个监督者watcher
   2) 当监控的某个对象znode发生了变化,则触发watcher事件
+  3) zk中的watcher是一次性的,触发后立即销毁
+  4) 父节点、子节点增删改都能触发其watcher
+  5) 针对不同类型的操作,触发的watcher事件也不同
+     (子)节点创建事件
+     (子)节点删除事件
+     (子)节点数据变化事件
+
+6、watcher事件类型
+   可以使用get /lwh watch给节点设置事件,这样当发生create、delete、set等时就会触发事件
+
+   父节点的watcher事件类型
+   1) NodeCreated事件,create会触发
+   2) NodeDataChanged事件,set会触发
+   3) NodeDeleted事件,delete触发
+
+   子节点的watcher事件类型
+   1) NodeChildrenChanged事件,ls给父节点设置watcher,创建子节点会触发该事件
+      如ls /lwh watch,然后create /lwh/abc 88,则会触发NodeChildrenChanged事件
+
+      同理,删除子节点也会触发NodeChildrenChanged事件
+
+      修改子节点不会触发事件
+
+   watcher使用场景:统一资源配置
+
+7、ACL(access control lists)权限控制
+   针对节点可以设置相关读写等权限,目的是为了保障数据安全性
+   ACL命令行
+   1) getAcl：获取某个节点的acl权限信息
+   2) setAcl: 设置某个节点的acl权限信息
+   3) addauth: 输入认证授权信息
