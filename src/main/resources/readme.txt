@@ -73,7 +73,12 @@
    权限permissions可以指定不同的权限范围以及角色
    1) ACL命令行
        a) getAcl：获取某个节点的acl权限信息
+          getAcl /lwh/abc
+          --> 'world,' anyone cdrwa(默认权限)
+
        b) setAcl: 设置某个节点的acl权限信息
+          setAcl /lwh/abc world:anyone:crwa
+
        c) addauth: 输入认证授权信息
 
    2) ACL构成:zk的acl通过[scheme:id:permissions]来构成权限列表
@@ -92,4 +97,8 @@
          3) WRITE:设置节点数据
          4) DELETE:删除子节点
          5) ADMIN:设置权限
+
+   3) ACL使用场景
+      a) 开发/测试环境分离,开发者无权操作测试库的节点,只能看
+
 
