@@ -77,6 +77,19 @@
        c) addauth: 输入认证授权信息
 
    2) ACL构成:zk的acl通过[scheme:id:permissions]来构成权限列表
-      scheme:代表采用的某种权限机制
-      id:代表允许访问的用户
-      permissions:权限组合字符串
+      a) scheme:代表采用的某种权限机制,4种
+         1) world:world下面只有一个id,即只有一个用户,也就是anyone,那么组合的写法就是world:anyone:[permissions](默认权限)
+         2) auth:代表认证登录,需要注册用户有权限就可以,形式为auth:user:password:[permissions]
+         3) digest:需要对密码加密后才能访问
+         4) ip:当设置为ip指定的ip地址,此时限制ip进行访问,比如ip:192.168.1.1:[permissions]
+         5) super:代表超级管理员,拥有所有的权限
+
+      b) id:代表允许访问的用户
+
+      c) permissions:权限组合字符串,删除读写操作等,权限字符串缩写crdwa
+         1) CREATE:创建子节点
+         2) READ:获取节点/子节点
+         3) WRITE:设置节点数据
+         4) DELETE:删除子节点
+         5) ADMIN:设置权限
+
