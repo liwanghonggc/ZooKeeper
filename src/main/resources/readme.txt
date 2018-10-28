@@ -70,6 +70,7 @@
 
 7、ACL(access control lists)权限控制
    针对节点可以设置相关读写等权限,目的是为了保障数据安全性
+   权限permissions可以指定不同的权限范围以及角色
    ACL命令行
    1) getAcl：获取某个节点的acl权限信息
    2) setAcl: 设置某个节点的acl权限信息
