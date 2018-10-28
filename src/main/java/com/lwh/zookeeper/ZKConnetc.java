@@ -6,8 +6,6 @@ import org.apache.zookeeper.ZooKeeper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author lwh
@@ -34,7 +32,7 @@ public class ZKConnetc implements Watcher {
     }
 
     @Override
-    public void process(WatchedEvent watchedEvent) {
-
+    public void process(WatchedEvent event) {
+        logger.debug("接收到watcher通知: {}", event);
     }
 }
