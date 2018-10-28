@@ -71,7 +71,12 @@
 7、ACL(access control lists)权限控制
    针对节点可以设置相关读写等权限,目的是为了保障数据安全性
    权限permissions可以指定不同的权限范围以及角色
-   ACL命令行
-   1) getAcl：获取某个节点的acl权限信息
-   2) setAcl: 设置某个节点的acl权限信息
-   3) addauth: 输入认证授权信息
+   1) ACL命令行
+       a) getAcl：获取某个节点的acl权限信息
+       b) setAcl: 设置某个节点的acl权限信息
+       c) addauth: 输入认证授权信息
+
+   2) ACL构成:zk的acl通过[scheme:id:permissions]来构成权限列表
+      scheme:代表采用的某种权限机制
+      id:代表允许访问的用户
+      permissions:权限组合字符串
