@@ -1,9 +1,6 @@
 package com.lwh.zookeeper;
 
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
-import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.ACL;
 
 import java.io.IOException;
@@ -12,9 +9,9 @@ import java.util.List;
 /**
  * @author lwh
  * @date 2018-10-29
- * @desp
+ * @desp demo3:创建节点
  */
-public class ZKNodeOperator implements Watcher {
+public class ZKNodeCreate implements Watcher {
 
     private ZooKeeper zooKeeper = null;
 
@@ -22,13 +19,13 @@ public class ZKNodeOperator implements Watcher {
 
     private static final int timeout = 5000;
 
-    public ZKNodeOperator() {
+    public ZKNodeCreate() {
 
     }
 
-    public ZKNodeOperator(String connectString){
+    public ZKNodeCreate(String connectString){
         try {
-            zooKeeper = new ZooKeeper(connectString, timeout, new ZKNodeOperator());
+            zooKeeper = new ZooKeeper(connectString, timeout, new ZKNodeCreate());
         } catch (IOException e) {
             e.printStackTrace();
             if(zooKeeper != null){
@@ -46,7 +43,9 @@ public class ZKNodeOperator implements Watcher {
      * @param path 创建的路径
      * @param data 存储的数据的byte[]
      * @param acls 控制权限策略
-     * @param createMode 节点类型,是一个枚举,
+     *                   Ids.OPEN_ACL_UNSAFE --> world:anyone:cdrwa
+     *                   CREATOR_ALL_ACL --> auth:user:password:cdrwa
+     *        createMode 节点类型,是一个枚举,
      *                   persistent:持久节点
      *                   persistent_sequential:持久顺序节点
      *                   ephemeral:临时节点
@@ -55,15 +54,25 @@ public class ZKNodeOperator implements Watcher {
     public void createZKNode(String path, byte[] data, List<ACL> acls){
         String result = "";
         try{
+            //同步方法,临时节点
             result = zooKeeper.create(path, data, acls, CreateMode.EPHEMERAL);
-        }catch (Exception e){
 
+            //异步方式,ctx这里可以做一些操作,如发送邮件等
+            String ctx = "{'create':'success'}";
+            //创建永久节点
+            zooKeeper.create(path, data, acls, CreateMode.PERSISTENT, new CreateCallback(), ctx);
+
+            System.out.println("创建节点: " + result + " 成功");
+            Thread.sleep(2000);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-        ZKNodeOperator zkNodeOperator = new ZKNodeOperator(zkServerPath);
-
+        ZKNodeCreate zkNodeOperator = new ZKNodeCreate(zkServerPath);
+        //创建zk节点,最低级的权限
+        zkNodeOperator.createZKNode("/testnode", "testnode".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE);
     }
 
     public ZooKeeper getZooKeeper() {
