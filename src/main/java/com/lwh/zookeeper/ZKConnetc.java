@@ -9,7 +9,7 @@ import org.apache.zookeeper.ZooKeeper;
 /**
  * @author lwh
  * @date 2018-10-28
- * @desp zookeeper连接演示
+ * @desp demo1:zookeeper连接演示
  */
 public class ZKConnetc implements Watcher {
 

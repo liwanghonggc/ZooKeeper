@@ -8,7 +8,7 @@ import org.apache.zookeeper.ZooKeeper;
 /**
  * @author lwh
  * @date 2018-10-29
- * @desp zk恢复之前的会话连接demo演示
+ * @desp demo2:zk恢复之前的会话连接demo演示
  */
 public class ZKConnectSessionWatcher implements Watcher {
 
@@ -16,6 +16,9 @@ public class ZKConnectSessionWatcher implements Watcher {
 
     private static final int timeout = 5000;
 
+    /**
+     * 在linux命令行里面,使用该命令可以查看会话相关信息: echo dump | nc 47.101.208.194 2181
+     */
     public static void main(String[] args) throws Exception {
         ZooKeeper zk = new ZooKeeper(zkServerPath, timeout, new ZKConnectSessionWatcher());
 
