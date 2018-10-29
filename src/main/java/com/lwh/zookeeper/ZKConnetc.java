@@ -3,8 +3,7 @@ package com.lwh.zookeeper;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 
 /**
@@ -14,25 +13,29 @@ import org.slf4j.LoggerFactory;
  */
 public class ZKConnetc implements Watcher {
 
-    final static Logger logger = LoggerFactory.getLogger(ZKConnetc.class);
+    private static final String zkServerPath = "47.101.208.194:2181";
 
-    public static final String zkServerPath = "47.101.208.194:2181";
+    private static final int timeout = 5000;
 
-    public static final int timeout = 5000;
-
-
+    /**
+     * 客户端和zk服务端的连接是一个异步的过程,当连接成功之后,客户端会收到一个watch通知
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         ZooKeeper zooKeeper = new ZooKeeper(zkServerPath, timeout, new ZKConnetc());
-        logger.debug("客户端开始连接zookeeper服务器...");
-        logger.debug("连接状态: {}", zooKeeper.getState());
+        System.out.println("客户端开始连接zookeeper服务器...");
 
+        System.out.println("连接状态: " + zooKeeper.getState());
+
+        //等待watcher事件
         Thread.sleep(2000);
 
-        logger.debug("连接状态: {}", zooKeeper.getState());
+        System.out.println("连接状态: " + zooKeeper.getState());
     }
 
     @Override
     public void process(WatchedEvent event) {
-        logger.debug("接收到watcher通知: {}", event);
+        System.out.println("接收到watcher通知: " + event);
     }
 }
