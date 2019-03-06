@@ -11,7 +11,7 @@ import org.apache.zookeeper.ZooKeeper;
  * @date 2018-10-28
  * @desp demo1:zookeeper连接演示
  */
-public class ZKConnetc implements Watcher {
+public class ZKConnect implements Watcher {
 
     private static final String zkServerPath = "47.101.208.194:2181";
 
@@ -23,7 +23,7 @@ public class ZKConnetc implements Watcher {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        ZooKeeper zooKeeper = new ZooKeeper(zkServerPath, timeout, new ZKConnetc());
+        ZooKeeper zooKeeper = new ZooKeeper(zkServerPath, timeout, new ZKConnect());
         System.out.println("客户端开始连接zookeeper服务器...");
 
         System.out.println("连接状态: " + zooKeeper.getState());

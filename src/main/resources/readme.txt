@@ -6,7 +6,7 @@
   5) 集群管理,集群中保证数据的强一致性
 
 2、ZK命令
-  1) 启动 zkServer.sh start
+  1) 启动 zkServer.sh start(zookeeper安装在47.101.208.194的目录/usr/local下)
   2) 客户端连接 zkCli.sh
   3) ls,如ls /显示根目录下有哪些节点
   4) ls2,如ls2 /显示节点及状态信息,ls2相当于ls和stat整合
